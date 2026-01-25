@@ -1,5 +1,7 @@
-import { CustomButton } from "@/components/main/common/CustomButton";
-import Link from "next/link";
+import { CustomButton } from "@/components/common/CustomButton";
+import { Counter } from "@/components/common/Counter";
+import { SimpleForm } from "@/components/common/SimpleForm";
+import { TodoList } from "@/components/common/TodoList";
 
 export default function Home() {
   return (
@@ -8,9 +10,9 @@ export default function Home() {
       <div className="mt-8">
         <CustomButton label="クリックしてね" color="pink" />
       </div>
-      <div className="mt-6">
-        <Link href="/about" className="text-blue-500 underline">アバウトに移動</Link>
-      </div>
+      <div className="mt-8"><Counter /></div>
+      <div className="mt-8"><SimpleForm /></div>
+      <div className="mt-8"><TodoList /></div>
     </main>
   );
 }

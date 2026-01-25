@@ -1,4 +1,4 @@
-import { Header } from "@/components/admin/common/Header";
+import { AdminHeader } from "@/components/common/AdminHeader";
 import "../globals.css";
 
 export default function RootLayout({
@@ -9,7 +9,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <Header />
+        <AdminHeader />
         {children}
       </body>
     </html>
