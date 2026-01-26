@@ -30,7 +30,7 @@ export const PostForm = ({ formResult, handleAction }: { formResult: ReturnMessa
         />
         <SubmitButton label="投稿する" />
       </form>
-      <p className="text-red-700" aria-live="polite">{state.error}</p>
+      <p className="text-red-700" aria-live="polite">{formResult.error}</p>
     </div>
   )
 }

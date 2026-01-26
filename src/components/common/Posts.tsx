@@ -17,7 +17,7 @@ export const Posts = ({ posts }: { posts: Post[] }) => {
   );
 
   const initialFormResult = { message: null, error: null }
-  const [formResult, formAction, isPending] = useActionState(addPost, initialState)
+  const [formResult, formAction, isPending] = useActionState(addPost, initialFormResult)
 
   const handleAction = async (formData: FormData) => {
     const title = formData.get("title") as string;
