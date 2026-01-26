@@ -1,9 +1,9 @@
-type Props = {
+export type ButtonProps = {
   label: string;
-  color: 'blue' | 'red' | 'yellow'|'pink'; // 使える色を限定する（型安全）
+  color: 'blue' | 'red' | 'yellow' | 'pink'; // 使える色を限定する（型安全）
 };
 
-export const CustomButton = ({ label, color }: Props) => {
+export const CustomButton = ({ label, color }: ButtonProps) => {
   // 色名とクラスをセットにする
   const colorVariants = {
     blue: 'bg-blue-500 hover:bg-blue-700',
