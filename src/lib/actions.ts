@@ -15,6 +15,8 @@ let posts = [
 ];
 
 export async function addPost(prevState: ReturnMessage, formData: FormData): Promise<ReturnMessage> {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  
   const title = formData.get("title") as string;
 
   if (title.length <= 5) return { message: null, error: "タイトルが短かすぎます" }
@@ -35,6 +37,8 @@ export async function addPost(prevState: ReturnMessage, formData: FormData): Pro
 }
 
 export async function deletePost(id: number) {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   posts = posts.filter((post) => post.id !== id);
   console.log("現在の投稿一覧:", posts);
   revalidatePath("/posts");
