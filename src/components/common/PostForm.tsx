@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { ReturnMessage } from "@/lib/actions"
 import { SubmitButton } from "@/components/common/SubmitButton";
 
-export const PostForm = ({ formResult, handleAction }: { formResult: ReturnMessage, handleAction: (formData: FormData) => void }) => {
+export const PostForm = ({ formResult, handleAdd }: { formResult: ReturnMessage, handleAdd: (formData: FormData) => void }) => {
 
   const [inputValue, setInputValue] = useState<string>("")
 
@@ -18,7 +18,7 @@ export const PostForm = ({ formResult, handleAction }: { formResult: ReturnMessa
   return (
     <div className="mb-10">
       {/* 投稿フォーム */}
-      <form action={handleAction} className="mb-3 flex gap-2">
+      <form action={handleAdd} className="mb-3 flex gap-2">
         <input
           name="title"
           type="text"
