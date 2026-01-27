@@ -1,10 +1,14 @@
-"use ";
+import { prisma } from "@/lib/prisma";
 
-import {  getPosts } from "@/lib/actions";
+// import { getPosts } from "@/lib/actions";
 import { Posts } from "@/components/common/Posts";
 
 export default async function PostsPage() {
-	const posts = await getPosts();
+	const posts = await prisma.post.findMany({
+    orderBy: {
+      createdAt: "desc", // 新しい順に並べる
+    },
+  });
 
 
 	return (
