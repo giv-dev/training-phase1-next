@@ -37,15 +37,19 @@ export async function addPost(prevState: ReturnMessage, formData: FormData): Pro
 
 }
 
-export async function deletePost(id: number) {
+export async function deletePost(prevState: ReturnMessage, id: number): Promise<ReturnMessage> {
   // await new Promise((resolve) => setTimeout(resolve, 3000));
 
   try {
     await prisma.post.delete({ where: { id } })
 
     revalidatePath("/posts");
+    return { message: "削除に成功しました", error: null }
+
   } catch (e) {
     console.error(e);
+    return { message: null, error: "削除に失敗しました" };
+
   }
 }
 
