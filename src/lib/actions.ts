@@ -2,6 +2,7 @@
 
 import { prisma } from "./prisma";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
 export type ReturnMessage = { message: string | null, error: string | null }
 
@@ -9,6 +10,13 @@ export type Post = {
   id: number,
   title: string
 }
+
+const PostSchema = z.object({
+  title: z
+    .string()
+    .min(3, { message: "タイトルが短かすぎます" }) // 空文字禁止
+    .max(50, { message: "50文字以内で入力してください" }), // 長すぎ禁止
+});
 
 // サーバー上のメモリに保存（Dockerコンテナが動いている間だけ保持される）
 // let posts = [
@@ -18,10 +26,26 @@ export type Post = {
 export async function addPost(prevState: ReturnMessage, formData: FormData): Promise<ReturnMessage> {
   // await new Promise((resolve) => setTimeout(resolve, 3000));
 
-  const title = formData.get("title") as string;
+  // データを解析
+  const validatedFields = PostSchema.safeParse({
+    title: formData.get("title"),
+  });
 
-  if (title.length <= 5) return { message: null, error: "タイトルが短かすぎます" }
+  // const title = formData.get("title") as string;
+  // if (title.length <= 5) return { message: null, error: "タイトルが短かすぎます" }
 
+  // もしバリデーションに失敗したら、その時点でエラーを返す
+  if (!validatedFields.success) {
+
+    return {
+      message: null,
+      // Zodが生成したエラーメッセージを抽出して返す
+      error: validatedFields.error.flatten().fieldErrors.title?.[0] ?? "入力エラーが発生しました",
+      // error: validatedFields.error.issues[0].message,
+    };
+  }
+
+  const { title } = validatedFields.data;
 
   try {
     await prisma.post.create({
