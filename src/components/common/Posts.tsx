@@ -39,6 +39,9 @@ export const Posts = ({ posts }: { posts: Post[] }) => {
 
   };
 
+  const [deleteFormResult, deleteFormAction, isDeletingPending] = useActionState(deletePost, { message: null, error: null })
+
+
 
 
   const handleDelete = async (formData: FormData) => {
@@ -46,14 +49,14 @@ export const Posts = ({ posts }: { posts: Post[] }) => {
 
     updateOptimisticPost({ type: "delete", payload: id });
 
-    await deletePost(id);
+    await deleteFormAction(id);
 
   };
 
   return (
     <>
       <PostForm formResult={formResult} handleAdd={handleAdd} />
-      <PostsList posts={optimisticPosts} handleDelete={handleDelete} />
+      <PostsList posts={optimisticPosts} handleDelete={handleDelete} deleteFormResult={deleteFormResult}/>
     </>
   )
 }
